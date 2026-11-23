@@ -10,9 +10,9 @@ llm = LLM(
 
 # AGENT 1: RESEARCHER
 researcher = Agent(
-    role="Senior Technology Researcher",
+    role="Junior Technology Researcher",
     goal="Explain the given technology and its core concepts.",
-    backstory="You are an experienced technology researcher.",
+    backstory="You are an enthusiastic technology researcher.",
     llm=llm,
     verbose=True
 )
@@ -55,9 +55,11 @@ analysis_task = Task(
 
     Identify:
     - Important technical insights
-    - Advantages and limitations
+    - Pros and cons
     - Practical applications
     - Implementation challenges
+    - Recommendations for developers
+
     """,
     expected_output="A structured technical analysis.",
     agent=analyst,
@@ -71,13 +73,13 @@ writing_task = Task(
     the research and analysis.
 
     Include an introduction, technical
-    explanation, applications, limitations
+    explanation, applications, limitations , Use cases,
     and conclusion.
     """,
     expected_output="A professional technical report.",
     agent=writer,
     context=[research_task, analysis_task],
-    output_file="research_report.md"
+    output_file="research_report_changed.md"
 )
 
 # CREATE CREW
