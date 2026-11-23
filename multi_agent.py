@@ -10,7 +10,7 @@ llm = LLM(
 
 # AGENT 1: RESEARCHER
 researcher = Agent(
-    role="Junior Technology Researcher",
+    role="Senior Technology Researcher",
     goal="Explain the given technology and its core concepts.",
     backstory="You are an enthusiastic technology researcher.",
     llm=llm,
@@ -20,7 +20,7 @@ researcher = Agent(
 # AGENT 2: ANALYST
 analyst = Agent(
     role="Technical Analyst",
-    goal="Analyze research findings and identify practical implications.",
+    goal="Analyze research findings and identify theoretical implications.",
     backstory="You are an experienced software architect.",
     llm=llm,
     verbose=True
@@ -45,7 +45,8 @@ research_task = Task(
     important concepts and applications.
     """,
     expected_output="A detailed research document.",
-    agent=researcher
+    agent=researcher,
+    # output_file="research_report_updated.md"
 )
 
 # TASK 2: ANALYSIS
@@ -63,7 +64,7 @@ analysis_task = Task(
     """,
     expected_output="A structured technical analysis.",
     agent=analyst,
-    context=[research_task]
+    # context=[research_task]
 )
 
 # TASK 3: REPORT GENERATION
@@ -86,13 +87,15 @@ writing_task = Task(
 crew = Crew(
     agents=[researcher, analyst, writer],
     tasks=[research_task, analysis_task, writing_task],
+    # agents=[researcher],
+    # tasks=[research_task],
     process=Process.sequential,
     verbose=True
 )
 
 # EXECUTE
 result = crew.kickoff(
-    inputs={"topic": "AI Agent Architecture"}
+    inputs={"topic": "RAG AI Framework"},
 )
 
 print("\nFINAL RESULT:\n")
